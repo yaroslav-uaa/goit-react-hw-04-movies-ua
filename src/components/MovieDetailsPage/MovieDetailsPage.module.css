@@ -1,0 +1,72 @@
+.details {
+  display: flex;
+  width: 80%;
+  margin: 20px auto;
+  background-color: rgba(1, 10, 29, 0.8);
+  color: white;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+}
+
+.link {
+  display: flex;
+  color: #040611;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  text-shadow: 0px 0px 8px rgb(255, 247, 247);
+  letter-spacing: 1rem;
+}
+
+.activeLink {
+  color: #f31255;
+  text-shadow: 0px 0px 8px rgb(0, 0, 0);
+}
+
+.poster {
+  max-width: 320px;
+  margin: 10px 10px 10px 10px;
+  border-radius: 5px;
+  height: 450px;
+  object-fit: cover;
+}
+
+.title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.info {
+  font-family: 'Dosis', sans-serif;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.genreList {
+  font-family: 'Bodoni Moda', serif;
+  font-weight: 300;
+  font-size: 20px;
+  padding: 0;
+}
+
+.genreList li {
+  list-style: none;
+}
+
+.description {
+  margin-left: 20px;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.rating {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 5px;
+}

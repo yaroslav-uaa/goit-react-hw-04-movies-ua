@@ -1,0 +1,9 @@
+.Container {
+  max-width: 1440px;
+  margin: 0 auto;
+  text-align: center;
+  background-image: url(../../images/bgi.jpg);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,12 @@
+.alert {
+  margin: 0 auto;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.msg {
+  display: inline-block;
+  color: #f22253;
+  font-weight: bold;
+  font-size: 26px;
+}

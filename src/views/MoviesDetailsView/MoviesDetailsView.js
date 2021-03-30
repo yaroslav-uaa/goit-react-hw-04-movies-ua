@@ -14,8 +14,10 @@ import Error from '../../components/Error/Error';
 import MoviesDetails from '../../components/MovieDetailsPage/MovieDetailsPage';
 import { Button } from '@material-ui/core';
 
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
+const Cast = lazy(() => import('../../components/MovieDetailsPage/Cast/Cast'));
+const Reviews = lazy(() =>
+  import('../../components/MovieDetailsPage/Reviews/Reviews'),
+);
 
 const MoviesDetailsView = () => {
   const [movie, setMovie] = useState([]);
@@ -26,21 +28,21 @@ const MoviesDetailsView = () => {
   const location = useLocation();
   const history = useHistory();
 
-  useEffect(() => {
-    const getMoviesByID = async () => {
-      try {
-        const result = await getMoviesDetails(movieId);
-        setMovie(result);
-        setStatus(Status.RESOLVED);
-      } catch (error) {
-        setError(error.msg);
-        setStatus(Status.REJECTED);
-        console.log(error.msg);
-      }
-    };
+  const getMoviesByID = async () => {
+    try {
+      const result = await getMoviesDetails(movieId);
+      setMovie(result);
+      setStatus(Status.RESOLVED);
+    } catch (error) {
+      setError(error.msg);
+      setStatus(Status.REJECTED);
+      console.log(error.msg);
+    }
+  };
 
-    getMoviesByID();
-  }, [movieId]);
+  useEffect(() => {
+    getMoviesByID(movieId);
+  });
 
   const goBackHandler = () => {
     history.push(location?.state?.from ?? '/');

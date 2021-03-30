@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import { getReviews, Status } from '../../../services/theMovieDb';
 
-import Loader from '../../../components/Loader';
+import Loader from '../../Loader';
 import r from './Reviews.module.css';
 
 const Reviews = () => {

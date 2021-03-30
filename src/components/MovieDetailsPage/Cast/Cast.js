@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { getCredits, Status} from '../../../services/theMovieDb';
+import { getCredits, Status } from '../../../services/theMovieDb';
 import avatar404 from '../../../images/avatar404.jpg';
 
-
-import Loader from '../../../components/Loader';
+import Loader from '../../Loader';
 import s from './Cast.module.css';
 
 const Cast = () => {
@@ -15,25 +14,26 @@ const Cast = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
-  useEffect(() => {
-    const getActors = async () => {
-      try {
-        const { cast } = await getCredits(movieId);
-        if (cast.length === 0) {
-          toast.info('No results');
-          setStatus(Status.IDLE);
-          return;
-        }
-        setCast(cast);
-        setStatus(Status.RESOLVED);
-      } catch (error) {
-        setError(error);
-        setCast([]);
-        setStatus(Status.REJECTED);
+  const getActors = async () => {
+    try {
+      const { cast } = await getCredits(movieId);
+      if (cast.length === 0) {
+        toast.info('No results');
+        setStatus(Status.IDLE);
+        return;
       }
-    };
-    getActors();
-  }, [movieId]);
+      setCast(cast);
+      setStatus(Status.RESOLVED);
+    } catch (error) {
+      setError(error);
+      setCast([]);
+      setStatus(Status.REJECTED);
+    }
+  };
+
+  useEffect(() => {
+    getActors(movieId);
+  });
 
   return (
     <>

@@ -8,10 +8,16 @@ import Loader from './components/Loader';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
-const HomeView = lazy(() => import('./views/HomeView/HomeView'));
-const MoviesView = lazy(() => import('./views/MoviesView/MoviesView'));
+const HomeView = lazy(() =>
+  import('./views/HomeView/HomeView' /* webpackChunkName: "HomePage" */),
+);
+const MoviesView = lazy(() =>
+  import('./views/MoviesView/MoviesView' /* webpackChunkName: "MoviesPage" */),
+);
 const MoviesDetailsView = lazy(() =>
-  import('./views/MoviesDetailsView/MoviesDetailsView'),
+  import(
+    './views/MoviesDetailsView/MoviesDetailsView' /* webpackChunkName: "MoviesDetailsPage" */
+  ),
 );
 
 function App() {

@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense, useCallback } from 'react';
 import {
   Route,
   useParams,
@@ -28,20 +28,21 @@ const MoviesDetailsView = () => {
   const location = useLocation();
   const history = useHistory();
 
-  useEffect(() => {
-    const getMoviesByID = async () => {
-      try {
-        const result = await getMoviesDetails(movieId);
-        setMovie(result);
-        setStatus(Status.RESOLVED);
-      } catch (error) {
-        setError(error.msg);
-        setStatus(Status.REJECTED);
-        console.log(error.msg);
-      }
-    };
-    getMoviesByID();
+  const getMoviesByID = useCallback(async () => {
+    try {
+      const result = await getMoviesDetails(movieId);
+      setMovie(result);
+      setStatus(Status.RESOLVED);
+    } catch (error) {
+      setError(error.msg);
+      setStatus(Status.REJECTED);
+      console.log(error.msg);
+    }
   }, [movieId]);
+
+  useEffect(() => {
+    getMoviesByID();
+  }, [getMoviesByID]);
 
   const goBackHandler = () => {
     history.push(location?.state?.from ?? '/');

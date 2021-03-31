@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -14,25 +14,26 @@ const Reviews = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const { results } = await getReviews(movieId);
-        if (results.length === 0) {
-          toast.info('No reviews for this movie.');
-          setStatus(Status.REJECTED);
-          return;
-        }
-        setReviews(results);
-        setStatus(Status.RESOLVED);
-      } catch (error) {
-        setError(error);
-        setReviews([]);
+  const fetchReviews = useCallback(async () => {
+    try {
+      const { results } = await getReviews(movieId);
+      if (results.length === 0) {
+        toast.info('No reviews for this movie.');
         setStatus(Status.REJECTED);
+        return;
       }
-    };
-    fetchReviews();
+      setReviews(results);
+      setStatus(Status.RESOLVED);
+    } catch (error) {
+      setError(error);
+      setReviews([]);
+      setStatus(Status.REJECTED);
+    }
   }, [movieId]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   return (
     <>

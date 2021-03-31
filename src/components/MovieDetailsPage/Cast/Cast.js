@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -14,25 +14,26 @@ const Cast = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
 
-  useEffect(() => {
-    const getActors = async () => {
-      try {
-        const { cast } = await getCredits(movieId);
-        if (cast.length === 0) {
-          toast.info('No results');
-          setStatus(Status.IDLE);
-          return;
-        }
-        setCast(cast);
-        setStatus(Status.RESOLVED);
-      } catch (error) {
-        setError(error);
-        setCast([]);
-        setStatus(Status.REJECTED);
+  const getActors = useCallback(async () => {
+    try {
+      const { cast } = await getCredits(movieId);
+      if (cast.length === 0) {
+        toast.info('No results');
+        setStatus(Status.IDLE);
+        return;
       }
-    };
-    getActors();
+      setCast(cast);
+      setStatus(Status.RESOLVED);
+    } catch (error) {
+      setError(error);
+      setCast([]);
+      setStatus(Status.REJECTED);
+    }
   }, [movieId]);
+
+  useEffect(() => {
+    getActors();
+  }, [getActors]);
 
   return (
     <>

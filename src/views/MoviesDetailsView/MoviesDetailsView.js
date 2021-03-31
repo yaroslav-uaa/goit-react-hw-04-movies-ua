@@ -28,21 +28,20 @@ const MoviesDetailsView = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const getMoviesByID = async () => {
-    try {
-      const result = await getMoviesDetails(movieId);
-      setMovie(result);
-      setStatus(Status.RESOLVED);
-    } catch (error) {
-      setError(error.msg);
-      setStatus(Status.REJECTED);
-      console.log(error.msg);
-    }
-  };
-
   useEffect(() => {
-    getMoviesByID(movieId);
-  });
+    const getMoviesByID = async () => {
+      try {
+        const result = await getMoviesDetails(movieId);
+        setMovie(result);
+        setStatus(Status.RESOLVED);
+      } catch (error) {
+        setError(error.msg);
+        setStatus(Status.REJECTED);
+        console.log(error.msg);
+      }
+    };
+    getMoviesByID();
+  }, [movieId]);
 
   const goBackHandler = () => {
     history.push(location?.state?.from ?? '/');
